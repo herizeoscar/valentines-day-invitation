@@ -297,8 +297,24 @@ body {
   min-width: 170px;
   min-height: 56px;
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-  -webkit-transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, opacity .3s ease;
-  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, opacity .3s ease;
+  -webkit-transition: opacity .4s ease;
+  transition: opacity .4s ease;
+}
+.btn-no.dodge {
+  -webkit-animation: dodge .6s cubic-bezier(.25,.46,.45,.94);
+  animation: dodge .6s cubic-bezier(.25,.46,.45,.94);
+}
+@-webkit-keyframes dodge {
+  0% { -webkit-transform: translate(0,0) scale(1); }
+  20% { -webkit-transform: translate(var(--dx),var(--dy)) scale(.95); }
+  50% { -webkit-transform: translate(calc(var(--dx) * -0.3),calc(var(--dy) * -0.3)) scale(1.02); }
+  100% { -webkit-transform: translate(0,0) scale(1); }
+}
+@keyframes dodge {
+  0% { transform: translate(0,0) scale(1); }
+  20% { transform: translate(var(--dx),var(--dy)) scale(.95); }
+  50% { transform: translate(calc(var(--dx) * -0.3),calc(var(--dy) * -0.3)) scale(1.02); }
+  100% { transform: translate(0,0) scale(1); }
 }
 
 .buttons-row {
@@ -545,7 +561,7 @@ body {
       "Tu amor y tus hermosos sentimientos hacen que todo a tu alrededor sea mejor.",
       "Admiro tus valores como persona: tu lealtad, tu honestidad, tu generosidad, tu fuerza, tu ternura.",
       "Cada vez que me miras, siento que el mundo se detiene un segundo.",
-      "Nunca olvidar\u00e9 el día en que nos conocimos. Literalmente mi vida cambió \u2014 ese momento vive en m\u00ed.",
+      "Nunca olvidar\u00e9 el día en que nos conocimos. Literalmente mi vida cambió. Ese momento vive en m\u00ed.",
       "Te admiro profundamente, y te lo digo poco.",
       "Gracias por elegirme cada d\u00eda. Yo tambi\u00e9n te elijo siempre.",
       "Eres mi calma, mi risa, mi lugar seguro."
@@ -553,8 +569,8 @@ body {
     detallesPlan: {
       titulo: "Nuestro plan",
       items: [
-        { icon: "\ud83c\udf7d\ufe0f", text: "Cena en casa hecha por nosotros" },
-        { icon: "\ud83c\udfac", text: "Noche de pelis" },
+        { icon: "\ud83c\udf7d\ufe0f", text: "Cena en casa hecha por nosotros." },
+        { icon: "\ud83c\udfac", text: "Noche de pelis/series (Seguramente Bridgerton)" },
         { icon: "\ud83d\udcc5", text: "14 de febrero, 2026" }
       ]
     }
@@ -783,7 +799,7 @@ body {
           list.appendChild(li);
         }
 
-        $("teAmo").textContent = "Te amo, " + CONFIG.apodo + " \ud83d\udc96";
+        $("teAmo").textContent = "Te amo infinito" + " \ud83d\udc96";
         $("firmaEl").textContent = "Tuyo, siempre \u2014 " + CONFIG.miNombre;
       });
     }, 400);
@@ -803,15 +819,21 @@ body {
     if (noAttempts <= 2) {
       btnNo.textContent = noTexts[noAttempts - 1] || noTexts[noTexts.length - 1];
       if (!reducedMotion) {
-        var ox = (Math.random() - 0.5) * 40;
-        var oy = (Math.random() - 0.5) * 20;
-        btnNo.style.webkitTransform = "translate(" + ox + "px," + oy + "px)";
-        btnNo.style.transform = "translate(" + ox + "px," + oy + "px)";
-        setTimeout(function() { btnNo.style.webkitTransform = ""; btnNo.style.transform = ""; }, 600);
+        var dx = (Math.random() - 0.5) * 50;
+        var dy = (Math.random() - 0.5) * 24;
+        btnNo.style.setProperty("--dx", dx + "px");
+        btnNo.style.setProperty("--dy", dy + "px");
+        btnNo.classList.remove("dodge");
+        void btnNo.offsetHeight;
+        btnNo.classList.add("dodge");
+        btnNo.addEventListener("animationend", function handler() {
+          btnNo.classList.remove("dodge");
+          btnNo.removeEventListener("animationend", handler);
+        });
       }
     }
     if (noAttempts >= 2) {
-      msg.textContent = "Ok\u2026 te doy un segundo \ud83d\ude05 pero mira esto\u2026";
+      msg.textContent = "Ok\u2026 te doy un segundo para pensarlo \ud83d\ude05 pero la verdad solo puedes decir que si\u2026";
       msg.classList.add("visible");
       btnSi.classList.add("glow-highlight");
       btnNo.style.opacity = ".5";
