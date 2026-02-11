@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(gh auth status:*)"
+      "Bash(gh auth status:*)",
+      "Bash(gh api:*)",
+      "Bash(python -c:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nPersonalizar frasesBonitas y corregir sintaxis\n\n- Actualizar frases con contenido personalizado\n- Corregir enumeración inconsistente de cualidades\n- Ajustar puntuación antes de guión largo\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nMejorar animación del botón \"No\" y ajustes de contenido\n\n- Reemplazar transición inline por animación CSS dodge con keyframes suaves\n- Añadir efecto de rebote y escala para mayor fluidez\n- Ajustes menores en textos y plan\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix responsive del plan card y eliminar scroll trap en frases\n\n- Alinear texto del plan card a la izquierda para textos largos\n- Eliminar max-height y overflow del contenedor de frases para fluir con el scroll natural de la página\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
